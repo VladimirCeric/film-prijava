@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>MMP - Prijava za domaći zadatak 2</title>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <h2>Prijava za domaći zadatak 2: Filmski plakat</h2>
+    <form id="filmForm">
+      <label>Ime i prezime:</label><br />
+      <input type="text" name="imePrezime" required /><br /><br />
+
+      <label>Broj indeksa:</label><br />
+      <input type="text" name="brojIndeksa" required /><br /><br />
+
+      <label>Email adresa:</label><br />
+      <input type="email" name="email" required /><br /><br />
+
+      <label>Izaberi film:</label><br />
+      <select name="film" id="filmSelect" required>
+        <option value="">Učitavanje filmova...</option>
+      </select><br /><br />
+
+      <button type="submit">Pošalji prijavu</button>
+    </form>
+
+    <p id="response"></p>
+
+    <script>
+      // Dinamičko učitavanje slobodnih filmova
+      fetch("https://script.google.com/macros/s/AKfycbzraZ_gO_FiQo9ZkMnlxLRHom1osqV2So502vK1B9SH0WgmoKGbErALx1CX6RXNxdkW/exec?action=lista")
+        .then((res) => res.json())
+        .then((data) => {
+          const select = document.getElementById("filmSelect");
+          select.innerHTML = "";
+          data.filmovi.forEach((film) => {
+            const option = document.createElement("option");
+            option.value = film.naziv;
+            option.textContent = `${film.naziv} (${film.godina})`;
+            select.appendChild(option);
+          });
+        });
+
+      document.getElementById("filmForm").addEventListener("submit", function (e) {
+        e.preventDefault();
+        const formData = new FormData(this);
+        fetch("https://script.google.com/macros/s/AKfycbzraZ_gO_FiQo9ZkMnlxLRHom1osqV2So502vK1B9SH0WgmoKGbErALx1CX6RXNxdkW/exec", {
+          method: "POST",
+          body: formData,
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            document.getElementById("response").innerText = data.poruka;
+            if (data.uspesno) {
+              document.getElementById("filmForm").reset();
+            }
+          });
+      });
+    </script>
+  </body>
+</html>
