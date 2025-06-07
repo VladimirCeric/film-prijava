@@ -1,25 +1,70 @@
 <!DOCTYPE html>
-<html>
+<html lang="sr">
   <head>
-    <title>MMP - Prijava za domaći zadatak 2</title>
     <meta charset="UTF-8" />
+    <title>MMP - Prijava za domaći zadatak 2</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        max-width: 500px;
+        margin: 50px auto;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        background-color: #f9f9f9;
+      }
+      h2 {
+        text-align: center;
+      }
+      label {
+        display: block;
+        margin-top: 15px;
+      }
+      input[type="text"],
+      input[type="email"],
+      select {
+        width: 100%;
+        padding: 10px;
+        margin-top: 5px;
+        box-sizing: border-box;
+      }
+      button {
+        margin-top: 20px;
+        padding: 10px 20px;
+        width: 100%;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+      }
+      button:hover {
+        background-color: #0056b3;
+      }
+      #response {
+        margin-top: 20px;
+        font-weight: bold;
+        text-align: center;
+      }
+    </style>
   </head>
-  <body style='font-family:"Arial"'>
+  <body>
     <h2>Prijava za domaći zadatak 2: Filmski plakat</h2>
     <form id="filmForm">
-      <label>Ime i prezime:</label><br />
-      <input type="text" name="imePrezime" required /><br /><br />
+      <label>Ime i prezime:</label>
+      <input type="text" name="imePrezime" required />
 
-      <label>Broj indeksa:</label><br />
-      <input type="text" name="brojIndeksa" required /><br /><br />
+      <label>Broj indeksa:</label>
+      <input type="text" name="brojIndeksa" required />
 
-      <label>Email adresa:</label><br />
-      <input type="email" name="email" required /><br /><br />
+      <label>Email adresa:</label>
+      <input type="email" name="email" required />
 
-      <label>Izaberi film:</label><br />
+      <label>Izaberi film:</label>
       <select name="film" id="filmSelect" required>
         <option value="">Učitavanje filmova...</option>
-      </select><br /><br />
+      </select>
 
       <button type="submit">Pošalji prijavu</button>
     </form>
@@ -47,7 +92,7 @@
         const validDomain = email.endsWith("@gs.viser.edu.rs") || email.endsWith("@viser.edu.rs");
 
         if (!validDomain) {
-          document.getElementById("response").innerText = "Prijava zadatka moguća je korišćenjem zvanicnog imejla.";
+          document.getElementById("response").innerText = "Prijava zadatka moguća je korišćenjem zvaničnog imejla.";
           return;
         }
 
