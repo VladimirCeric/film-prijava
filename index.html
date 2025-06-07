@@ -27,7 +27,6 @@
     <p id="response"></p>
 
     <script>
-      // Dinamičko učitavanje slobodnih filmova
       fetch("https://script.google.com/macros/s/AKfycbzraZ_gO_FiQo9ZkMnlxLRHom1osqV2So502vK1B9SH0WgmoKGbErALx1CX6RXNxdkW/exec?action=lista")
         .then((res) => res.json())
         .then((data) => {
@@ -43,6 +42,15 @@
 
       document.getElementById("filmForm").addEventListener("submit", function (e) {
         e.preventDefault();
+
+        const email = document.querySelector("input[name='email']").value.trim();
+        const validDomain = email.endsWith("@gs.viser.edu.rs") || email.endsWith("@viser.edu.rs");
+
+        if (!validDomain) {
+          document.getElementById("response").innerText = "Prijava zadatka moguća je korišćenjem zvanicnog imejla.";
+          return;
+        }
+
         const formData = new FormData(this);
         fetch("https://script.google.com/macros/s/AKfycbzraZ_gO_FiQo9ZkMnlxLRHom1osqV2So502vK1B9SH0WgmoKGbErALx1CX6RXNxdkW/exec", {
           method: "POST",
